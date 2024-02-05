@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
 
         header {
             background-color: #fff;
-            color: #000; /* Black text color */
+            color: #333;
             padding: 15px;
             display: flex;
             justify-content: space-between;
@@ -78,59 +79,40 @@
     <div class="card-container" id="cardContainer"></div>
 
     <script>
-        // Sample JSON data
-        const jsonData = [
-            {
-                "image": "https://via.placeholder.com/300",
-                "title": "Card 1",
-                "description": "This is the description for Card 1."
-            },
-            {
-                "image": "https://via.placeholder.com/300",
-                "title": "Card 2",
-                "description": "This is the description for Card 2."
-            },
-            {
-                "image": "https://via.placeholder.com/300",
-                "title": "Card 3",
-                "description": "This is the description for Card 3."
-            }
-            
-        ];
+        // Fetch data from JSON file
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                const cardContainer = document.getElementById('cardContainer');
 
-      
-        function populateCards(data) {
-            const cardContainer = document.getElementById('cardContainer');
+                // Create cards and append to the card container
+                data.forEach(item => {
+                    const card = document.createElement('div');
+                    card.classList.add('card');
 
-            data.forEach(item => {
-                const card = document.createElement('div');
-                card.classList.add('card');
+                    const image = document.createElement('img');
+                    image.src = item.image;
+                    card.appendChild(image);
 
-                const image = document.createElement('img');
-                image.src = item.image;
-                card.appendChild(image);
+                    const cardContent = document.createElement('div');
+                    cardContent.classList.add('card-content');
 
-                const cardContent = document.createElement('div');
-                cardContent.classList.add('card-content');
+                    const cardTitle = document.createElement('div');
+                    cardTitle.classList.add('card-title');
+                    cardTitle.innerText = item.title;
+                    cardContent.appendChild(cardTitle);
 
-                const cardTitle = document.createElement('div');
-                cardTitle.classList.add('card-title');
-                cardTitle.innerText = item.title;
-                cardContent.appendChild(cardTitle);
+                    const cardDescription = document.createElement('div');
+                    cardDescription.classList.add('card-description');
+                    cardDescription.innerText = item.description;
+                    cardContent.appendChild(cardDescription);
 
-                const cardDescription = document.createElement('div');
-                cardDescription.classList.add('card-description');
-                cardDescription.innerText = item.description;
-                cardContent.appendChild(cardDescription);
+                    card.appendChild(cardContent);
 
-                card.appendChild(cardContent);
-
-                cardContainer.appendChild(card);
-            });
-        }
-
-        
-        populateCards(jsonData);
+                    cardContainer.appendChild(card);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
     </script>
 
 </body>
