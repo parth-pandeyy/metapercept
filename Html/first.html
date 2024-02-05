@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      header {
+        background-color: #ffff;
+        color: #000;
+        padding: 15px;
+        display: flex;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="metapercept">Title</div>
+      <nav>
+        <a href="Home"></a>
+        <a href="About"></a>
+        <a href="Blog"></a>
+        <a href="Contact"></a>
+      </nav>
+      <button type="button">Button</button>
+    </header>
+    <!-- <h2 style ="text-align:center"> classes </h2>
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <img src="http://placehold.it/" alt="placeholder" style="width:100%">
+                <div class="container">
+                    <h2 Basic technical writing></h2>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="Card-container" id="cardContainer"></div>
+    <script>
+      fetch("data.json")
+        .then((respnose) => respnose.json())
+        .then((data) => {
+          const cardContainer = document.getElementById("cardContainer");
+          data.forEach((item) => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            const image = document.createElement("img");
+            imgae.src = item.image;
+            card.appendChild(image);
+            const cardContent = document.createElement("div");
+            cardContent.classList.add("card-content");
+            const cardTitle = document.createElement("div");
+            cardTitle.classList.add("card-title");
+            cardtitle.innerText = item.title;
+            cardContent.appendChild(cardTitle);
+            const carddescription = document.createElement("div");
+            cardDescription.classList.add("card-description");
+            cardDescription.innerText = item.description;
+            cardContent.appendChild(cardDescription);
+            card.appendChild(cardContent);
+            cardContainer.appendChild(card);
+          });
+        });
+    </script>
+  </body>
+</html>
